@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.admin.ConfigParametrosController">
+   <children>
+      <Pane prefHeight="102.0" prefWidth="779.0" style="-fx-background-color: #4da0fc;">
+         <children>
+            <ImageView fitHeight="48.0" fitWidth="60.0" layoutX="28.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../assets/img/configuraciónIcono2.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="97.0" layoutY="27.0" text="Configurar Párametros" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="38.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutY="102.0" prefHeight="436.0" prefWidth="779.0" style="-fx-background-color: #6eb2ff;">
+         <children>
+            <Label layoutX="38.0" layoutY="33.0" text="Nombre de la empresa" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <TextField layoutX="38.0" layoutY="61.0" prefHeight="26.0" prefWidth="374.0" promptText="Escriba" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </TextField>
+            <Label layoutX="38.0" layoutY="111.0" text="Nombre de la empresa" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <TextField layoutX="38.0" layoutY="139.0" prefHeight="26.0" prefWidth="374.0" promptText="Escriba" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </TextField>
+            <ComboBox layoutX="38.0" layoutY="217.0" prefWidth="150.0" promptText="Seleccione" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;" />
+            <Label layoutX="38.0" layoutY="192.0" text="Idioma de la empresa" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="211.0" layoutY="217.0" prefWidth="150.0" promptText="Seleccione" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;" />
+            <Label layoutX="211.0" layoutY="192.0" text="Zona horaria" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="504.0" layoutY="41.0" text="Logo de la empresa" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnGuardar" cache="true" layoutX="38.0" layoutY="384.0" mnemonicParsing="false" onAction="#guardarCambios" prefHeight="30.0" prefWidth="209.0" style="-fx-background-color: #4da0fc;" text="Guardar cambios" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

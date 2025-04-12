@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.LoginController">
+   <children>
+      <Pane prefHeight="92.0" prefWidth="600.0" style="-fx-background-color: #4da0fc;">
+         <children>
+            <Label layoutX="152.0" layoutY="22.0" text="Inicio de sesión" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="38.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Pane layoutY="92.0" prefHeight="558.0" prefWidth="600.0" style="-fx-background-color: #6eb2ff;">
+         <children>
+            <Label layoutX="113.0" layoutY="205.0" text="Usuario" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="113.0" layoutY="297.0" text="Contraseña" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </Label>
+            <TextField layoutX="113.0" layoutY="233.0" prefHeight="26.0" prefWidth="374.0" promptText="Escriba" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font></TextField>
+            <TextField layoutX="113.0" layoutY="323.0" prefHeight="26.0" prefWidth="374.0" promptText="*********" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </TextField>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="225.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/img/usuarioIcono.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="bntIniciarSesion" cache="true" layoutX="196.0" layoutY="407.0" mnemonicParsing="false" onAction="#acceder" prefHeight="30.0" prefWidth="209.0" style="-fx-background-color: #4da0fc;" text="Iniciar Sesión" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+         </children></Pane>
+   </children>
+</AnchorPane>

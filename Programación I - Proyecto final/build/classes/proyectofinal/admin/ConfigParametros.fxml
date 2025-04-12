@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="proyectofinal.admin.ConfigParametrosController">
+   <children>
+      <Pane prefHeight="102.0" prefWidth="779.0" style="-fx-background-color: #4da0fc;">
+         <children>
+            <ImageView fitHeight="48.0" fitWidth="60.0" layoutX="28.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/img/empresaIcono.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="97.0" layoutY="27.0" text="Configurar Párametros" textFill="WHITE">
+               <font>
+                  <Font name="Verdana" size="38.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutY="102.0" prefHeight="436.0" prefWidth="779.0" style="-fx-background-color: #6eb2ff;" />
+   </children>
+</AnchorPane>
