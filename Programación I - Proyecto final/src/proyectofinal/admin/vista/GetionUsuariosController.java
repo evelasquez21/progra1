@@ -59,6 +59,33 @@ public class GetionUsuariosController implements Initializable {
     private TableColumn<UsuarioTabla, String> correoECol;
     @FXML
     private TableColumn<UsuarioTabla, String> rolCol;
+    @FXML
+    private Button btnActualizar;
+    @FXML
+    private Button btnEliminar;
+    @FXML
+    private Button btnLimpiarDatos;
+    @FXML
+    private Button btnBuscarID;
+    
+    
+    // variables
+    private Conexion con = new Conexion();  
+    private String id;
+    private String nombreCompleto;
+    private String correoElectronico;
+    private String nombreUsuario;
+    private String password;
+    private String tipoUsuario;
+    
+    public void obtenerCampos(){
+        id = txtId.getText();
+        nombreCompleto = txtNombreCompleto.getText();
+        correoElectronico = txtCorreoElectronico.getText();
+        nombreUsuario = txtNombreUsuario.getText();
+        password = txtContraseña.getText();
+        tipoUsuario = cboRolAsignado.getSelectionModel().getSelectedItem();
+    }
 
     /**
      * Initializes the controller class.
@@ -72,24 +99,14 @@ public class GetionUsuariosController implements Initializable {
         correoECol.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
         rolCol.setCellValueFactory(new PropertyValueFactory<>("rol"));
         
-        Conexion con = new Conexion();
         con.consultarUsuarios(tbAdministrador);
         con.asignarCombobox("Roles", cboRolAsignado);
         completarCampos(tbAdministrador);
     }    
 
     @FXML
-    private void agregarUsuario(ActionEvent event) {
-        
-       
-        Conexion con = new Conexion();
-        String id = txtId.getText();
-        String nombreCompleto = txtNombreCompleto.getText();
-        String correoElectronico = txtCorreoElectronico.getText();
-        String nombreUsuario = txtNombreUsuario.getText();
-        String password = txtContraseña.getText();
-        String tipoUsuario = cboRolAsignado.getSelectionModel().getSelectedItem();        
-         
+    private void agregarUsuario(ActionEvent event) {      
+        obtenerCampos();
         con.insertarUsuarios(nombreCompleto, correoElectronico, nombreUsuario, password, tipoUsuario);
         con.consultarUsuarios(tbAdministrador);
        
@@ -120,6 +137,36 @@ public class GetionUsuariosController implements Initializable {
                 txtCorreoElectronico.setText(newSelection.getCorreoElectronico());
             }
         });
+    }
+
+    @FXML
+    private void actualizarUsuario(ActionEvent event) {
+        obtenerCampos();
+        con.actualizarUsuarios(id, nombreCompleto, correoElectronico, nombreUsuario, password, tipoUsuario);
+        con.consultarUsuarios(tbAdministrador);
+    }
+
+    @FXML
+    private void eliminarUsuario(ActionEvent event) {
+        obtenerCampos();
+        con.eliminarUsuarios(id);
+        con.consultarUsuarios(tbAdministrador);
+    }
+
+    @FXML
+    private void limpiarDatos(ActionEvent event) {
+        txtId.setText("");
+        txtNombreCompleto.setText("");
+        txtCorreoElectronico.setText("");
+        txtNombreUsuario.setText("");
+        txtContraseña.setText("");
+        cboRolAsignado.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    private void buscarIdUsuario(ActionEvent event) {
+        obtenerCampos();
+        con.buscarUsuarios(tbAdministrador, id);
     }
     
 }
