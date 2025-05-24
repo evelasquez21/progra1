@@ -14,7 +14,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -28,6 +30,34 @@ public class GestionTicketsController implements Initializable {
     private TableView<?> tbAdministrador;
     @FXML
     private Button btnGenerarTicket;
+    @FXML
+    private TextField txtTituloTicket;
+    @FXML
+    private TextField txtDesTicket;
+    @FXML
+    private ComboBox<?> cboDeptoAsig;
+    @FXML
+    private ComboBox<?> cboNivelP;
+    @FXML
+    private TextField txtNoTicket;
+    @FXML
+    private Button btnEliminarTicket;
+    @FXML
+    private Button btnActualizarTicket;
+    @FXML
+    private TextField txtNivelEstado;
+    @FXML
+    private TextField txtNombreEstado;
+    @FXML
+    private TextField txtDesEstado;
+    @FXML
+    private TableView<?> tbAdministrador1;
+    @FXML
+    private Button btnCrearEstado;
+    @FXML
+    private Button btnEliminarEstado;
+    @FXML
+    private Button btnActualizarEstado;
 
     /**
      * Initializes the controller class.

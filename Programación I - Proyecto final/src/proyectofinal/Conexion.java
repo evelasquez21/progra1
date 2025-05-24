@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import proyectofinal.admin.modelo.*;
 import java.sql.PreparedStatement;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -182,6 +183,7 @@ public class Conexion {
                 datos.add(rs.getString(3));
                 datos.add(rs.getString(4));
                 datos.add(rs.getString(5));
+                datos.add(rs.getString(6));
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -463,4 +465,153 @@ public class Conexion {
     // Fin modulo de Roles y permisos <-------------
     
     
+    // Modulo de Departamentos ---------------->
+    public void consultarAsignaciones(TableView<Asignaciones> tableView){
+        ObservableList<Asignaciones> data = FXCollections.observableArrayList();
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            rs = s.executeQuery("SELECT a.\"idAsignacion\", u.\"nombreCompleto\", u.nombreusuario, d.\"NombreDepartamento\" FROM \"Asignacion\" a  JOIN \"Usuarios\" u ON u.idusuario = a.idusuario JOIN \"Departamentos\" d ON d.\"IdDepartamento\" = a.\"IdDepartamento\"");
+            
+            
+            while (rs.next()) {                
+                Asignaciones asignaciones = new Asignaciones(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                data.add(asignaciones);
+            }
+            tableView.setItems(data);
+           
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void consultarDepartamentos(TableView<Departamentos> tableView){
+        ObservableList<Departamentos> data = FXCollections.observableArrayList();
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            rs = s.executeQuery("SELECT * FROM \"Departamentos\"");
+            
+            
+            while (rs.next()) {                
+                Departamentos depto = new Departamentos(rs.getString(1), rs.getString(2), rs.getString(3));
+                data.add(depto);
+            }
+            tableView.setItems(data);
+           
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void listaTecnicos(ComboBox cbo, ArrayList<String> datos){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            rs = s.executeQuery("SELECT u.idusuario, u.\"nombreCompleto\" FROM \"Roles\" r JOIN \"Usuarios\" u ON r.idrol = u.idrol WHERE r.nombrerol LIKE '%Tecnico%'");
+            
+            ObservableList<String> list = FXCollections.observableArrayList();
+            while (rs.next()) {
+                list.add(rs.getString(1));
+                datos.add(rs.getString(1));
+                datos.add(rs.getString(2));
+            }
+            cbo.setItems(list);
+           
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void insertarDepartamentos(String nombreDepto, String descripcionDepto){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("INSERT INTO \"Departamentos\"(\"NombreDepartamento\", \"DescripcionDepartamento\") VALUES ('" + nombreDepto + "', '" + descripcionDepto + "')");
+            if (z == 1) {
+                System.out.println("Se agregó el registro");
+            } else {
+                System.out.println("No se pudo registrar");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void actualizarDepartamentos(String id, String nombreDepto, String descripcionDepto){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("UPDATE \"Departamentos\" SET \"NombreDepartamento\"='" + nombreDepto + "', \"DescripcionDepartamento\"='" + descripcionDepto + "' WHERE \"IdDepartamento\"=" + id);
+            if (z == 1) {
+                System.out.println("Se actualizo el registro");
+            } else {
+                System.out.println("No se pudo actualizar el registro");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void eliminarDepartamentos(String id){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("DELETE FROM \"Departamentos\" WHERE \"IdDepartamento\"=" + id);
+            if (z == 1) {
+                System.out.println("Se agregó elimino el registro");
+            } else {
+                System.out.println("No se pudo eliminar el registro");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void insertarAsignaciones(String idUsuario, String idDepartamento){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("INSERT INTO \"Asignacion\"(idusuario, \"IdDepartamento\") VALUES (" + idUsuario + ", " + idDepartamento + ")");
+            if (z == 1) {
+                System.out.println("Se agregó el registro");
+            } else {
+                System.out.println("No se pudo registrar");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void actualizatAsignaciones(String id, String idUsuario, String idDepartamento){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("UPDATE \"Asignacion\" SET idusuario=" + idUsuario + ", \"IdDepartamento\"=" + idDepartamento + " WHERE \"idAsignacion\"=" + id);
+            if (z == 1) {
+                System.out.println("Se actualizo el registro");
+            } else {
+                System.out.println("No se pudo actualizar el registro");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void eliminarAsignaciones(String id){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("DELETE FROM \"Asignacion\" WHERE \"idAsignacion\"=" + id);
+            if (z == 1) {
+                System.out.println("Se agregó elimino el registro");
+            } else {
+                System.out.println("No se pudo eliminar el registro");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    // Fin modulo de Departamentos <-------------
 }

@@ -131,9 +131,9 @@ public class ConfigParametrosController implements Initializable {
         
         con.obtenerDatosEmpresa(datos);
         txtNombreEmp.setText(datos.get(0));
-        cboIdioma.setValue(datos.get(2));
-        cboZonaHoraria.setValue(datos.get(3));
-        txtTiempoVen.setText(datos.get(4));
+        cboIdioma.setValue(datos.get(1));
+        cboZonaHoraria.setValue(datos.get(2));
+        txtTiempoVen.setText(datos.get(3));
         
         completarCampos(tbPrioridades);
         con.mostrarImagen(imgViewEmp);

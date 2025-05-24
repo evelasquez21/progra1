@@ -4,6 +4,7 @@
  */
 package proyectofinal;
 
+import proyectofinal.admin.modelo.Departamentos;
 import java.util.Date;
 
 /**
@@ -14,11 +15,11 @@ public class Ticket {
     private String noTicket;
     private String estadoTicket;
     private Date fechaCreacion;
-    private Departamento departamentoAsignado;
+    private Departamentos departamentoAsignado;
     private int prioridad;
     private String resumenProblema;
 
-    public Ticket(String noTicket, String estadoTicket, Date fechaCreacion, Departamento departamentoAsignado, int prioridad, String resumenProblema) {
+    public Ticket(String noTicket, String estadoTicket, Date fechaCreacion, Departamentos departamentoAsignado, int prioridad, String resumenProblema) {
         this.noTicket = noTicket;
         this.estadoTicket = estadoTicket;
         this.fechaCreacion = fechaCreacion;
@@ -51,11 +52,11 @@ public class Ticket {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Departamento getDepartamentoAsignado() {
+    public Departamentos getDepartamentoAsignado() {
         return departamentoAsignado;
     }
 
-    public void setDepartamentoAsignado(Departamento departamentoAsignado) {
+    public void setDepartamentoAsignado(Departamentos departamentoAsignado) {
         this.departamentoAsignado = departamentoAsignado;
     }
 
