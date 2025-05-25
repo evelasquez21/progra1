@@ -88,6 +88,9 @@ public class GestionDepartamentoController implements Initializable {
     private String idUsuario;
     private String idDeptoA;
     private ArrayList<String> listaTecnicos = new ArrayList<String>();
+    private ArrayList<String> listaDepartamentos = new ArrayList<String>();
+    @FXML
+    private Label lblDepartamento;
     
     private void obtenerCampos(){
         idDepto = txtIdDepto.getText();
@@ -109,7 +112,7 @@ public class GestionDepartamentoController implements Initializable {
         con.asignarCombobox("Departamentos", cboDepartamentos);
         
         
-        con.consultarDepartamentos(txbDepartamentos);
+        con.consultarDepartamentos(txbDepartamentos, listaDepartamentos);
         con.consultarAsignaciones(tbAsignaciones);
         
         colIdDepto.setCellValueFactory(new PropertyValueFactory<>("idDepto"));
@@ -130,7 +133,7 @@ public class GestionDepartamentoController implements Initializable {
     private void agregarDepartamento(ActionEvent event) {
         obtenerCampos();
         con.insertarDepartamentos(nombDepto, DesDepto);
-        con.consultarDepartamentos(txbDepartamentos);
+        con.consultarDepartamentos(txbDepartamentos, listaDepartamentos);
         con.asignarCombobox("Departamentos", cboDepartamentos);
     }
     
@@ -163,6 +166,18 @@ public class GestionDepartamentoController implements Initializable {
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->{
             if (newSelection != null){
                 txtIdAsig.setText(newSelection.getId());
+                String tenico = newSelection.getNombreCompleto();
+                String departamento = newSelection.getNombreDepto();
+                for (int i = 0; i < listaTecnicos.size(); i++) {
+                    if (tenico.equals(listaTecnicos.get(i))) {
+                        cboTecnicos.setValue(listaTecnicos.get(i-1));
+                    } 
+                }
+                for (int i = 0; i < listaDepartamentos.size(); i++) {
+                    if (departamento.equals(listaDepartamentos.get(i))) {
+                        cboDepartamentos.setValue(listaDepartamentos.get(i-1));
+                    }
+                }
             }
         });
     }
@@ -178,7 +193,7 @@ public class GestionDepartamentoController implements Initializable {
     private void eliminarDepartamento(ActionEvent event) {
         obtenerCampos();
         con.eliminarDepartamentos(idDepto);
-        con.consultarDepartamentos(txbDepartamentos);
+        con.consultarDepartamentos(txbDepartamentos, listaDepartamentos);
         con.asignarCombobox("Departamentos", cboDepartamentos);
     }
 
@@ -186,7 +201,7 @@ public class GestionDepartamentoController implements Initializable {
     private void actualizarDepartamento(ActionEvent event) {
         obtenerCampos();
         con.actualizarDepartamentos(idDepto, nombDepto, DesDepto);
-        con.consultarDepartamentos(txbDepartamentos);
+        con.consultarDepartamentos(txbDepartamentos, listaDepartamentos);
         con.consultarAsignaciones(tbAsignaciones);
     }
 
@@ -212,6 +227,15 @@ public class GestionDepartamentoController implements Initializable {
         obtenerCampos();
         con.eliminarAsignaciones(idAsig);
         con.consultarAsignaciones(tbAsignaciones);
+    }
+
+    @FXML
+    private void mostrarNomDepto(ActionEvent event) {
+        for (int i = 0; i < listaDepartamentos.size(); i++) {
+            if (cboDepartamentos.getSelectionModel().getSelectedItem().equals(listaDepartamentos.get(i))) {
+                lblDepartamento.setText(listaDepartamentos.get(i+1));
+            }
+        }
     }
     
 }

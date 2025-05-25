@@ -6,6 +6,7 @@ package proyectofinal.admin;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -94,6 +96,9 @@ public class GestionarRolesController implements Initializable {
     private String DesRol;
     private String NivRol;
     private String IdRolPer;
+    private ArrayList<String> listaRoles = new ArrayList<String>();
+    @FXML
+    private Label lblRol;
     
     public void obtenerCampos(){
         IdRol = txtIdRol.getText();
@@ -122,7 +127,7 @@ public class GestionarRolesController implements Initializable {
         colDesPer.setCellValueFactory(new PropertyValueFactory<>("descripcionPermiso"));
         colRolPer.setCellValueFactory(new PropertyValueFactory<>("idRol"));
         
-        con.consultarRoles(tbRoles);
+        con.consultarRoles(tbRoles, listaRoles);
         con.consultarPermisos(tbPermisos);
         con.asignarCombobox("Roles", cboIdRol);
         
@@ -134,7 +139,7 @@ public class GestionarRolesController implements Initializable {
     private void agregarRol(ActionEvent event) {
         obtenerCampos();
         con.insertarRoles(NombreRol, NivRol, DesRol);
-        con.consultarRoles(tbRoles);
+        con.consultarRoles(tbRoles, listaRoles);
         con.asignarCombobox("Roles", cboIdRol);
     }
 
@@ -177,6 +182,12 @@ public class GestionarRolesController implements Initializable {
                 txtIdPermiso.setText(newSelection.getId());
                 txtNomPer.setText(newSelection.getNombrePermiso());
                 txtDesPer.setText(newSelection.getDescripcionPermiso());
+                String permiso = newSelection.getIdRol();
+                for (int i = 0; i < listaRoles.size(); i++) {
+                    if (permiso.equals(listaRoles.get(i))) {
+                        cboIdRol.setValue(listaRoles.get(i-1));
+                    }
+                }
             }
         });
     }
@@ -199,14 +210,14 @@ public class GestionarRolesController implements Initializable {
     private void actualizarRol(ActionEvent event) {
         obtenerCampos();
         con.actualizarRoles(IdRol, NombreRol, NivRol, DesRol);
-        con.consultarRoles(tbRoles);
+        con.consultarRoles(tbRoles, listaRoles);
     }
 
     @FXML
     private void eliminarRol(ActionEvent event) {
         obtenerCampos();
         con.eliminarRoles(IdRol);
-        con.consultarRoles(tbRoles);
+        con.consultarRoles(tbRoles, listaRoles);
         con.asignarCombobox("Roles", cboIdRol);
     }
 
@@ -225,6 +236,15 @@ public class GestionarRolesController implements Initializable {
         txtNomPer.setText("");
         txtDesPer.setText("");
         cboIdRol.getSelectionModel().clearSelection();
+    }
+
+    @FXML
+    private void mostrarNomRol(ActionEvent event) {
+        for (int i = 0; i < listaRoles.size(); i++) {
+            if (cboIdRol.getSelectionModel().getSelectedItem().equals(listaRoles.get(i))) {
+                lblRol.setText(listaRoles.get(i+1));
+            }
+        }
     }
     
 }

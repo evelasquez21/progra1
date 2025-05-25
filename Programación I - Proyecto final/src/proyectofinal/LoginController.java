@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -27,6 +28,12 @@ public class LoginController implements Initializable {
 
     @FXML
     private Button bntIniciarSesion;
+    @FXML
+    private TextField txtUsuario;
+    @FXML
+    private TextField txtPassowrd;
+    
+    private Conexion con = new Conexion();
 
     /**
      * Initializes the controller class.
@@ -38,28 +45,33 @@ public class LoginController implements Initializable {
 
     @FXML
     private void acceder(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("admin/vista/AdminMenu.fxml"));
+        if (con.iniciarSession(txtUsuario.getText(), txtPassowrd.getText()) == false) {
+            
+        } else {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("admin/vista/AdminMenu.fxml"));
         
-        Parent root = loader.load();
-        
-        proyectofinal.admin.AdminMenuController controlador = loader.getController();
-        
-        Scene scene = new Scene(root);
-        Stage stage = new Stage(); 
-        
-        stage.setScene(scene);
-        stage.show();
-        
-        stage.setOnCloseRequest(e -> {
-            try {
-                controlador.closeWindows();
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        
-        Stage myStage = (Stage) this.bntIniciarSesion.getScene().getWindow();
-        myStage.close();        
+            Parent root = loader.load();
+
+            proyectofinal.admin.AdminMenuController controlador = loader.getController();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage(); 
+
+            stage.setScene(scene);
+            stage.show();
+
+            stage.setOnCloseRequest(e -> {
+                try {
+                    controlador.closeWindows();
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+
+            Stage myStage = (Stage) this.bntIniciarSesion.getScene().getWindow();
+            myStage.close();     
+        }
+           
     }
     
 }

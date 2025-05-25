@@ -31,7 +31,7 @@
             </Label>
          </children>
       </Pane>
-      <ScrollPane layoutY="102.0" prefHeight="442.0" prefWidth="1050.0" style="-fx-background-color: #6eb2ff;">
+      <ScrollPane layoutY="102.0" prefHeight="461.0" prefWidth="1050.0" style="-fx-background-color: #6eb2ff;">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="701.0" prefWidth="1252.0" style="-fx-background-color: #6eb2ff;">
                <children>
@@ -58,7 +58,7 @@
                            </font>
                         </TextField>
                         <ComboBox fx:id="cboTecnicos" layoutX="35.0" layoutY="470.0" onAction="#mostrarNomTec" prefHeight="27.0" prefWidth="374.0" promptText="Seleccione" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;" />
-                        <Label layoutX="35.0" layoutY="446.0" text="Técnicos a asignar" textFill="WHITE">
+                        <Label layoutX="35.0" layoutY="446.0" text="Técnicos a asignar:" textFill="WHITE">
                            <font>
                               <Font name="Verdana" size="12.0" />
                            </font>
@@ -140,15 +140,15 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label fx:id="lblTecnico" layoutX="161.0" layoutY="447.0" text="-" textFill="#eeeb40">
+                        <Label fx:id="lblTecnico" layoutX="157.0" layoutY="447.0" text="-" textFill="#eeeb40">
                            <font>
                               <Font name="Verdana Bold" size="12.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
-                  <ComboBox fx:id="cboDepartamentos" layoutX="36.0" layoutY="536.0" prefHeight="27.0" prefWidth="374.0" promptText="Seleccione" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;" />
-                  <Label layoutX="36.0" layoutY="512.0" text="Departamento a asignar" textFill="WHITE">
+                  <ComboBox fx:id="cboDepartamentos" layoutX="36.0" layoutY="536.0" onAction="#mostrarNomDepto" prefHeight="27.0" prefWidth="374.0" promptText="Seleccione" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;" />
+                  <Label layoutX="36.0" layoutY="512.0" text="Departamento a asignar:" textFill="WHITE">
                      <font>
                         <Font name="Verdana" size="12.0" />
                      </font>
@@ -177,6 +177,11 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <Label fx:id="lblDepartamento" layoutX="192.0" layoutY="512.0" text="-" textFill="#eeeb40">
+                     <font>
+                        <Font name="Verdana Bold" size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
         </content>

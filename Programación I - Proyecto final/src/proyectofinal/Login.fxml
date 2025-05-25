@@ -32,11 +32,11 @@
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <TextField layoutX="113.0" layoutY="233.0" prefHeight="26.0" prefWidth="374.0" promptText="Escriba" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;">
+            <TextField fx:id="txtUsuario" layoutX="113.0" layoutY="233.0" prefHeight="26.0" prefWidth="374.0" promptText="Escriba" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font></TextField>
-            <TextField layoutX="113.0" layoutY="323.0" prefHeight="26.0" prefWidth="374.0" promptText="*********" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;">
+            <TextField fx:id="txtPassowrd" layoutX="113.0" layoutY="323.0" prefHeight="26.0" prefWidth="374.0" promptText="*********" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>

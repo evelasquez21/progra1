@@ -7,6 +7,7 @@ package proyectofinal.admin.vista;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -77,6 +79,11 @@ public class GetionUsuariosController implements Initializable {
     private String nombreUsuario;
     private String password;
     private String tipoUsuario;
+    private ArrayList<String> listaRoles = new ArrayList<String>();
+    @FXML
+    private Label lblRol;
+    @FXML
+    private Button btnVertodos;
     
     public void obtenerCampos(){
         id = txtId.getText();
@@ -100,7 +107,7 @@ public class GetionUsuariosController implements Initializable {
         rolCol.setCellValueFactory(new PropertyValueFactory<>("rol"));
         
         con.consultarUsuarios(tbAdministrador);
-        con.asignarCombobox("Roles", cboRolAsignado);
+        con.listaRoles(cboRolAsignado, listaRoles);
         completarCampos(tbAdministrador);
     }    
 
@@ -135,6 +142,12 @@ public class GetionUsuariosController implements Initializable {
                 txtNombreCompleto.setText(newSelection.getNombreCompleto());
                 txtNombreUsuario.setText(newSelection.getNombreUsuario());
                 txtCorreoElectronico.setText(newSelection.getCorreoElectronico());
+                String departamento = newSelection.getRol();
+                for (int i = 0; i < listaRoles.size(); i++) {
+                    if (departamento.equals(listaRoles.get(i))) {
+                        cboRolAsignado.setValue(listaRoles.get(i-1));
+                    }
+                }
             }
         });
     }
@@ -167,6 +180,20 @@ public class GetionUsuariosController implements Initializable {
     private void buscarIdUsuario(ActionEvent event) {
         obtenerCampos();
         con.buscarUsuarios(tbAdministrador, id);
+    }
+
+    @FXML
+    private void mostrarNomRol(ActionEvent event) {
+        for (int i = 0; i < listaRoles.size(); i++) {
+            if (cboRolAsignado.getSelectionModel().getSelectedItem().equals(listaRoles.get(i))) {
+                lblRol.setText(listaRoles.get(i+1));
+            }
+        }
+    }
+
+    @FXML
+    private void verTodos(ActionEvent event) {
+        con.consultarUsuarios(tbAdministrador);
     }
     
 }

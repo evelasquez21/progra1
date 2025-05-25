@@ -16,9 +16,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="589.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.admin.vista.GestionTicketsController">
+<AnchorPane id="AnchorPane" prefHeight="589.0" prefWidth="1057.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectofinal.admin.vista.GestionTicketsController">
    <children>
-      <Pane prefHeight="102.0" prefWidth="898.0" style="-fx-background-color: #4da0fc;">
+      <Pane prefHeight="102.0" prefWidth="1057.0" style="-fx-background-color: #4da0fc;">
          <children>
             <ImageView fitHeight="48.0" fitWidth="60.0" layoutX="28.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -32,13 +32,13 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutY="102.0" prefHeight="445.0" prefWidth="898.0" style="-fx-background-color: #6eb2ff;">
+      <Pane layoutY="102.0" prefHeight="487.0" prefWidth="1057.0" style="-fx-background-color: #6eb2ff;">
          <children>
-            <TabPane prefHeight="487.0" prefWidth="898.0" style="-fx-background-color: #6eb2ff;" tabClosingPolicy="UNAVAILABLE">
+            <TabPane prefHeight="487.0" prefWidth="1057.0" style="-fx-background-color: #6eb2ff;" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Generación de Tickets">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="477.0" prefWidth="898.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="458.0" prefWidth="981.0">
                            <children>
                               <Label layoutX="159.0" layoutY="63.0" text="Título" textFill="WHITE">
                                  <font>
@@ -60,14 +60,14 @@
                                     <Font name="Verdana" size="12.0" />
                                  </font>
                               </TextField>
-                              <ComboBox fx:id="cboDeptoAsig" layoutX="47.0" layoutY="232.0" prefHeight="27.0" prefWidth="374.0" promptText="Seleccione" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;" />
-                              <Label layoutX="47.0" layoutY="207.0" text="Departamento asignado" textFill="WHITE">
+                              <ComboBox fx:id="cboDeptoAsig" layoutX="47.0" layoutY="232.0" onAction="#mostrarDepto" prefHeight="27.0" prefWidth="374.0" promptText="Seleccione" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;" />
+                              <Label layoutX="47.0" layoutY="207.0" text="Departamento asignado:" textFill="WHITE">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="cboNivelP" layoutX="47.0" layoutY="299.0" prefHeight="27.0" prefWidth="374.0" promptText="Seleccione" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;" />
-                              <Label layoutX="47.0" layoutY="274.0" text="Nivel de proridad" textFill="WHITE">
+                              <ComboBox fx:id="cboNivelP" layoutX="47.0" layoutY="299.0" onAction="#MostrarPrioridad" prefHeight="27.0" prefWidth="374.0" promptText="Seleccione" style="-fx-background-color: #71a5e1; -fx-border-color: #226cc1;" />
+                              <Label layoutX="47.0" layoutY="274.0" text="Nivel de proridad:" textFill="WHITE">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
                                  </font>
@@ -90,7 +90,7 @@
                                     <Font name="Verdana" size="12.0" />
                                  </font>
                               </TextField>
-                              <Button fx:id="btnEliminarTicket" cache="true" layoutX="537.0" layoutY="375.0" mnemonicParsing="false" onAction="#GenerarTicket" prefHeight="30.0" prefWidth="119.0" style="-fx-background-color: #ff3b3b;" text="Eliminar Ticket" textFill="WHITE">
+                              <Button fx:id="btnEliminarTicket" cache="true" layoutX="537.0" layoutY="375.0" mnemonicParsing="false" onAction="#eliminarTicket" prefHeight="30.0" prefWidth="119.0" style="-fx-background-color: #ff3b3b;" text="Eliminar Ticket" textFill="WHITE">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
                                  </font>
@@ -98,7 +98,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="btnActualizarTicket" cache="true" layoutX="694.0" layoutY="375.0" mnemonicParsing="false" onAction="#GenerarTicket" prefHeight="30.0" prefWidth="125.0" style="-fx-background-color: #56deff;" text="Actualizar Ticket" textFill="WHITE">
+                              <Button fx:id="btnActualizarTicket" cache="true" layoutX="694.0" layoutY="375.0" mnemonicParsing="false" onAction="#actualizarTicket" prefHeight="30.0" prefWidth="125.0" style="-fx-background-color: #56deff;" text="Actualizar Ticket" textFill="WHITE">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
                                  </font>
@@ -106,30 +106,42 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <ScrollPane layoutX="441.0" layoutY="43.0" prefHeight="317.0" prefWidth="457.0">
+                              <ScrollPane layoutX="441.0" layoutY="43.0" prefHeight="317.0" prefWidth="587.0">
                                 <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="655.0" style="-fx-background-color: #6eb2ff;">
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="759.0" style="-fx-background-color: #6eb2ff;">
                                        <children>
-                                          <TableView fx:id="tbAdministrador" layoutX="38.0" layoutY="8.0" prefHeight="285.0" prefWidth="579.0" style="-fx-background-color: #6e9bce; -fx-border-color: #226cc1;" tableMenuButtonVisible="true">
+                                          <TableView fx:id="tbTicket" layoutX="38.0" layoutY="8.0" prefHeight="285.0" prefWidth="696.0" style="-fx-background-color: #6e9bce; -fx-border-color: #226cc1;" tableMenuButtonVisible="true">
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                              <columns>
-                                                <TableColumn prefWidth="76.0" text="#" />
-                                                <TableColumn prefWidth="139.0" text="Título" />
-                                                <TableColumn prefWidth="190.0" text="Descripción" />
-                                                <TableColumn prefWidth="157.0" text="Departamento Asignado" />
+                                                <TableColumn fx:id="colNoTicket" prefWidth="76.0" text="#" />
+                                                <TableColumn fx:id="colTituloT" prefWidth="109.0" text="Título" />
+                                                <TableColumn fx:id="colDesTicket" prefWidth="147.0" text="Descripción" />
+                                                <TableColumn fx:id="colDeptoAsig" prefWidth="125.0" text="Departamento Asignado" />
+                                                <TableColumn fx:id="colPrioridad" prefWidth="97.0" text="Prioridad" />
+                                                <TableColumn fx:id="colFechaC" minWidth="0.0" prefWidth="65.0" text="Fecha de Creación" />
                                              </columns>
                                           </TableView>
                                        </children>
                                     </AnchorPane>
                                 </content>
                               </ScrollPane>
+                              <Label fx:id="lblNivPrio" layoutX="162.0" layoutY="274.0" text="-" textFill="#eeeb40">
+                                 <font>
+                                    <Font name="Verdana Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblDeptoAsig" layoutX="203.0" layoutY="208.0" text="-" textFill="#eeeb40">
+                                 <font>
+                                    <Font name="Verdana Bold" size="12.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="Estados de Tickets">
+                <Tab onSelectionChanged="#MostrarEstados" text="Estados de Tickets">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -163,17 +175,17 @@
                                     <Font name="Verdana" size="12.0" />
                                  </font>
                               </TextField>
-                              <TableView fx:id="tbAdministrador1" layoutX="467.0" layoutY="43.0" prefHeight="285.0" prefWidth="395.0" style="-fx-background-color: #6e9bce; -fx-border-color: #226cc1;" tableMenuButtonVisible="true">
+                              <TableView fx:id="tbEstados" layoutX="467.0" layoutY="43.0" prefHeight="285.0" prefWidth="395.0" style="-fx-background-color: #6e9bce; -fx-border-color: #226cc1;" tableMenuButtonVisible="true">
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                                  <columns>
-                                    <TableColumn prefWidth="83.0" text="Nivel Estado" />
-                                    <TableColumn prefWidth="150.0" text="Nombre Estado" />
-                                    <TableColumn prefWidth="144.0" text="Descripción Estado" />
+                                    <TableColumn fx:id="colNivEstado" prefWidth="83.0" text="Nivel Estado" />
+                                    <TableColumn fx:id="colNomEstado" prefWidth="150.0" text="Nombre Estado" />
+                                    <TableColumn fx:id="colDesEstado" prefWidth="144.0" text="Descripción Estado" />
                                  </columns>
                               </TableView>
-                              <Button fx:id="btnCrearEstado" cache="true" layoutX="33.0" layoutY="252.0" mnemonicParsing="false" onAction="#GenerarTicket" prefHeight="30.0" prefWidth="123.0" style="-fx-background-color: #4da0fc;" text="Crear estado" textFill="WHITE">
+                              <Button fx:id="btnCrearEstado" cache="true" layoutX="33.0" layoutY="252.0" mnemonicParsing="false" onAction="#crearEstado" prefHeight="30.0" prefWidth="123.0" style="-fx-background-color: #4da0fc;" text="Crear estado" textFill="WHITE">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
                                  </font>
@@ -181,7 +193,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="btnEliminarEstado" cache="true" layoutX="162.0" layoutY="252.0" mnemonicParsing="false" onAction="#GenerarTicket" prefHeight="30.0" prefWidth="119.0" style="-fx-background-color: #ff3b3b;" text="Eliminar estado" textFill="WHITE">
+                              <Button fx:id="btnEliminarEstado" cache="true" layoutX="162.0" layoutY="252.0" mnemonicParsing="false" onAction="#eliminarEstado" prefHeight="30.0" prefWidth="119.0" style="-fx-background-color: #ff3b3b;" text="Eliminar estado" textFill="WHITE">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
                                  </font>
@@ -189,7 +201,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="btnActualizarEstado" cache="true" layoutX="287.0" layoutY="252.0" mnemonicParsing="false" onAction="#GenerarTicket" prefHeight="30.0" prefWidth="125.0" style="-fx-background-color: #56deff;" text="Actualizar estado" textFill="WHITE">
+                              <Button fx:id="btnActualizarEstado" cache="true" layoutX="287.0" layoutY="252.0" mnemonicParsing="false" onAction="#actualizarEstado" prefHeight="30.0" prefWidth="125.0" style="-fx-background-color: #56deff;" text="Actualizar estado" textFill="WHITE">
                                  <font>
                                     <Font name="Verdana" size="12.0" />
                                  </font>

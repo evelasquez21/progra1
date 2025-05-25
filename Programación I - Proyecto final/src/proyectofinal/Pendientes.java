@@ -4,12 +4,14 @@
  */
 package proyectofinal;
 
+import proyectofinal.admin.modelo.Tickets;
+
 /**
  *
  * @author eduar
  */
 public class Pendientes {
-    private Ticket [] listaTickets;
+    private Tickets [] listaTickets;
     
     public void verSolicitudes(){
         
