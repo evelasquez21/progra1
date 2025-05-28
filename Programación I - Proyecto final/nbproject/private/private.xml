@@ -9,16 +9,23 @@
             <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/Conexion.java</file>
             <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/GestionarRolesController.java</file>
             <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/modelo/Prioridades.java</file>
+            <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/modelo/Tickets.java</file>
+            <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/modelo/Asignaciones.java</file>
+            <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/modelo/Estados.java</file>
             <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/Pendientes.java</file>
+            <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/vista/ConfigFlujoTrabajoController.java</file>
             <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/ProyectoFinal.java</file>
             <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/modelo/UsuarioTabla.java</file>
+            <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/modelo/Departamentos.java</file>
+            <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/vista/GestionDepartamentoController.java</file>
             <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/ConfigParametrosController.java</file>
             <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/modelo/Parametros.java</file>
-            <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/Ticket.java</file>
             <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/modelo/PermisosTabla.java</file>
+            <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/LoginController.java</file>
             <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/Roles.java</file>
             <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/FlujoTrabajo.java</file>
-            <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/Departamento.java</file>
+            <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/Usuarios.java</file>
+            <file>file:/C:/Users/eduar/OneDrive/Documentos/NetBeansProjects/ProyectoFinal/src/proyectofinal/admin/vista/GestionTicketsController.java</file>
         </group>
     </open-files>
 </project-private>

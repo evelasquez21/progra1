@@ -28,6 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import proyectofinal.Conexion;
 import proyectofinal.admin.modelo.Estados;
+import proyectofinal.admin.modelo.Pendiente;
 import proyectofinal.admin.modelo.Tickets;
 
 /**
@@ -97,12 +98,55 @@ public class GestionTicketsController implements Initializable {
     private String nivelEstado;
     private String nombreEstado;
     private String desEstado;
+    private String noPendiente;
+    private String pNoTicket;
+    private String flujoTrabajo;
+    private String estados;
     private ArrayList<String> listaDepartamentos = new ArrayList<String>();
     private ArrayList<String> listaPrioridades = new ArrayList<String>();
+    private ArrayList<String> listEstados = new ArrayList<String>();
+    private ArrayList<String> listaTicket = new ArrayList<String>();
+    private ArrayList<String> listaFlujoT = new ArrayList<String>();
     @FXML
     private Label lblNivPrio;
     @FXML
     private Label lblDeptoAsig;
+    @FXML
+    private Button btnTratarTicket;
+    @FXML
+    private TextField txtNoPendiente;
+    @FXML
+    private ComboBox<String> cboFlujoTrabajo;
+    @FXML
+    private ComboBox<String> cboNoTicket;
+    @FXML
+    private Button btnActualizarEstatus;
+    @FXML
+    private TableView<Pendiente> tbPendientes;
+    @FXML
+    private TableColumn<Pendiente, String> colIdPendiente;
+    @FXML
+    private TableColumn<Pendiente, String> colPNoT;
+    @FXML
+    private TableColumn<Pendiente, String> colPEstado;
+    @FXML
+    private TableColumn<Pendiente, String> colPFechaC;
+    @FXML
+    private TableColumn<Pendiente, String> colPDepto;
+    @FXML
+    private TableColumn<Pendiente, String> colPPrioridad;
+    @FXML
+    private TableColumn<Pendiente, String> colPResumenP;
+    @FXML
+    private Button btnEliminarPendiente;
+    @FXML
+    private ComboBox<String> cboEstatus;
+    @FXML
+    private Label lblNoTicket;
+    @FXML
+    private Label lblFlujoT;
+    @FXML
+    private Label lblEstado;
     
     
     public void obtenerCampos(){
@@ -114,6 +158,10 @@ public class GestionTicketsController implements Initializable {
         nivelEstado = txtNivelEstado.getText();
         nombreEstado = txtNombreEstado.getText();
         desEstado = txtDesEstado.getText();
+        noPendiente = txtNoPendiente.getText();
+        pNoTicket = cboNoTicket.getSelectionModel().getSelectedItem();
+        flujoTrabajo = cboFlujoTrabajo.getSelectionModel().getSelectedItem();
+        estados = cboEstatus.getSelectionModel().getSelectedItem();
     }
 
     /**
@@ -131,8 +179,8 @@ public class GestionTicketsController implements Initializable {
         colTituloT.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         colDesTicket.setCellValueFactory(new PropertyValueFactory<>("desProblema"));
         colDeptoAsig.setCellValueFactory(new PropertyValueFactory<>("idDepartamento"));
-        colPrioridad.setCellValueFactory(new PropertyValueFactory<>("idPrioridad"));
         colFechaC.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
+        colPrioridad.setCellValueFactory(new PropertyValueFactory<>("idPrioridad"));
         
         completarCampos1(tbTicket);
     }    
@@ -173,7 +221,7 @@ public class GestionTicketsController implements Initializable {
                     }
                 }
                 for (int i = 0; i < listaPrioridades.size(); i++) {
-                    if (departamento.equals(listaPrioridades.get(i))) {
+                    if (prioridad.equals(listaPrioridades.get(i))) {
                         cboNivelP.setValue(listaPrioridades.get(i-1));
                     }
                 }
@@ -252,6 +300,63 @@ public class GestionTicketsController implements Initializable {
                 lblNivPrio.setText(listaPrioridades.get(i+1));
             }
         }
+    }
+
+    @FXML
+    private void tratarTicket(ActionEvent event) {
+        con.insertarPendientes(flujoTrabajo, noTicket);
+        con.consultarPendientes(tbPendientes);
+    }
+
+    @FXML
+    private void mostrarFlujo(ActionEvent event) {
+        for (int i = 0; i < listaFlujoT.size(); i++) {
+            if (cboFlujoTrabajo.getSelectionModel().getSelectedItem().equals(listaFlujoT.get(i))) {
+                lblFlujoT.setText(listaFlujoT.get(i+1));
+            }
+        }
+    }
+
+    @FXML
+    private void MostrarNoTicket(ActionEvent event) {
+        for (int i = 0; i < listaTicket.size(); i++) {
+            if (cboNoTicket.getSelectionModel().getSelectedItem().equals(listaTicket.get(i))) {
+                lblNoTicket.setText(listaTicket.get(i+1));
+            }
+        }
+    }
+
+    @FXML
+    private void actualizarEstatus(ActionEvent event) {
+    }
+
+    @FXML
+    private void eliminarPendiente(ActionEvent event) {
+    }
+
+    @FXML
+    private void MostrarNomEstado(ActionEvent event) {
+        for (int i = 0; i < listEstados.size(); i++) {
+            if (cboEstatus.getSelectionModel().getSelectedItem().equals(listEstados.get(i))) {
+                lblEstado.setText(listEstados.get(i+1));
+            }
+        }
+    }
+
+    @FXML
+    private void MostrarListaPendientes(Event event) {
+        con.consultarPendientes(tbPendientes);
+        con.listaEstados(cboEstatus, listEstados);
+        con.listTickets(cboNoTicket, listaTicket);
+        con.listaFlujoTrabajo(cboFlujoTrabajo, listaFlujoT);
+        
+        colIdPendiente.setCellValueFactory(new PropertyValueFactory<>("idPendiente"));
+        colPNoT.setCellValueFactory(new PropertyValueFactory<>("noTicket"));
+        colNomEstado.setCellValueFactory(new PropertyValueFactory<>("nombreEstado"));
+        colPFechaC.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
+        colPDepto.setCellValueFactory(new PropertyValueFactory<>("nombreDepartamento"));
+        colPPrioridad.setCellValueFactory(new PropertyValueFactory<>("nombrePrioridad"));
+        colPResumenP.setCellValueFactory(new PropertyValueFactory<>("desProblema"));
     }
     
 }

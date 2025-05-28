@@ -18,11 +18,11 @@ public class Parametros {
     private final SimpleStringProperty tiempoVencimientoTicket;
     
     public Parametros(String nombreEmpresa, String dirLogoEmpresa, String idioma, String zonaHoraria, String tiempoVencimientoTicket){
-        this. nombreEmpresa = new SimpleStringProperty(nombreEmpresa);
-        this. dirLogoEmpresa = new SimpleStringProperty(dirLogoEmpresa);
-        this. idioma = new SimpleStringProperty(idioma);
-        this. zonaHoraria = new SimpleStringProperty(zonaHoraria);
-        this. tiempoVencimientoTicket = new SimpleStringProperty(tiempoVencimientoTicket);
+        this.nombreEmpresa = new SimpleStringProperty(nombreEmpresa);
+        this.dirLogoEmpresa = new SimpleStringProperty(dirLogoEmpresa);
+        this.idioma = new SimpleStringProperty(idioma);
+        this.zonaHoraria = new SimpleStringProperty(zonaHoraria);
+        this.tiempoVencimientoTicket = new SimpleStringProperty(tiempoVencimientoTicket);
     }
     
     public String getNombreEmpresa(){

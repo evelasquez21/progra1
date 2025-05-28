@@ -24,6 +24,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import proyectofinal.admin.modelo.*;
 import java.sql.PreparedStatement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -672,10 +675,13 @@ public class Conexion {
         try {
             iniciarConexion();
             s = connection.createStatement();
-            rs = s.executeQuery("SELECT t.\"noTicket\", t.descripcion,  d.\"NombreDepartamento\", p.\"NombrePrioridad\",  TO_CHAR(t.\"FechaCreacion\", 'DD/MM/YYYY'), t.\"desProblema\" FROM \"Ticket\" t JOIN \"Departamentos\" d ON d.\"IdDepartamento\" = t.\"idDepartamento\" JOIN \"Prioridades\" p ON p.\"IdPrioridad\" = t.\"idPrioridad\"");
+            rs = s.executeQuery("SELECT t.\"noTicket\", t.descripcion,  d.\"NombreDepartamento\", p.\"NombrePrioridad\", t.\"FechaCreacion\", t.\"desProblema\" FROM \"Ticket\" t JOIN \"Departamentos\" d ON d.\"IdDepartamento\" = t.\"idDepartamento\" JOIN \"Prioridades\" p ON p.\"IdPrioridad\" = t.\"idPrioridad\"");
             
-            while (rs.next()) {      
-                Tickets ticket = new Tickets(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+            while (rs.next()) {
+                Date fecha = rs.getDate(5);
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                String fechaFormateada = df.format(fecha);
+                Tickets ticket = new Tickets(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), fechaFormateada, rs.getString(6));
                 data.add(ticket);
                 
             }
@@ -833,5 +839,247 @@ public class Conexion {
         }
     }
     
+    public void consultarPendientes(TableView<Pendiente> tableView){
+        ObservableList<Pendiente> data = FXCollections.observableArrayList();
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            rs = s.executeQuery("SELECT p2.\"idPendiente\", t.\"noTicket\", es.\"nombreEstado\", t.\"FechaCreacion\",  d.\"NombreDepartamento\", p.\"NombrePrioridad\", t.\"desProblema\" FROM \"Pendientes\" p2 JOIN \"FlujoTrabajo\" ft ON ft.\"idFlujoTrabajo\" = p2.\"idFlujoTrabajo\" JOIN \"Estados\" es ON es.\"nivelEstado\" = ft.\"nivelEstado\" JOIN \"Ticket\" t ON t.\"noTicket\" = p2.\"noTicket\" JOIN \"Departamentos\" d ON d.\"IdDepartamento\" = t.\"idDepartamento\" JOIN \"Prioridades\" p ON p.\"IdPrioridad\" = t.\"idPrioridad\"");
+            
+            while (rs.next()) {
+                Date fecha = rs.getDate(4);
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                String fechaFormateada = df.format(fecha);
+                Pendiente pendiente = new Pendiente(rs.getString(1), rs.getString(2), rs.getString(3), fechaFormateada, rs.getString(5), rs.getString(6), rs.getString(7));
+                data.add(pendiente);
+                
+            }
+            tableView.setItems(data);
+           
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void insertarPendientes(String idFlujoTrabajo, String noTicket){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("INSERT INTO \"Pendientes\"(\"idFlujoTrabajo\", \"noTicket\") VALUES (" + idFlujoTrabajo + ", " + noTicket + ")");
+            if (z == 1) {
+                System.out.println("Se agregó el registro");
+            } else {
+                System.out.println("No se pudo registrar");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void listTickets(ComboBox cbo, ArrayList<String> datos){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            rs = s.executeQuery("SELECT \"noTicket\", descripcion FROM \"Ticket\"");
+            
+            ObservableList<String> list = FXCollections.observableArrayList();
+            while (rs.next()) {
+                list.add(rs.getString(1));
+                datos.add(rs.getString(1));
+                datos.add(rs.getString(2));
+            }
+            cbo.setItems(list);
+           
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void listaFlujoTrabajo(ComboBox cbo, ArrayList<String> datos){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            rs = s.executeQuery("SELECT \"idFlujoTrabajo\", \"nombreFlujo\" FROM \"FlujoTrabajo\"");
+            
+            ObservableList<String> list = FXCollections.observableArrayList();
+            while (rs.next()) {
+                list.add(rs.getString(1));
+                datos.add(rs.getString(1));
+                datos.add(rs.getString(2));
+            }
+            cbo.setItems(list);
+           
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
     // Fin modulo de Tickets <-------------
+    
+    // Modulo de Flujo de trabajo ---------------->
+    public void consultarFlujo(TableView<FlujoTrabajos> tableView){
+        ObservableList<FlujoTrabajos> data = FXCollections.observableArrayList();
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            rs = s.executeQuery("SELECT f.\"idFlujoTrabajo\", f.\"nombreFlujo\", e.\"nombreEstado\", r.\"nombreRegla\" FROM \"FlujoTrabajo\" f JOIN \"Estados\" e ON e.\"nivelEstado\" = f.\"nivelEstado\" JOIN \"Reglas\" r ON r.\"idRegla\" = f.\"idRegla\"");
+            
+            while (rs.next()) {      
+                FlujoTrabajos flujoT = new FlujoTrabajos(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                data.add(flujoT);
+            }
+            tableView.setItems(data);
+           
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void insertarFlujo(String nombreFlujo, String nivelEstado, String idRegla){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("INSERT INTO \"FlujoTrabajo\"(\"nombreFlujo\", \"nivelEstado\", \"idRegla\") VALUES ('" + nombreFlujo + "', " + nivelEstado + ", " + idRegla + ")");
+            if (z == 1) {
+                System.out.println("Se agregó el registro");
+            } else {
+                System.out.println("No se pudo registrar");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void actualizarFlujo(String idFlujoTrabajo, String nombreFlujo, String nivelEstado, String idRegla){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("UPDATE \"FlujoTrabajo\" SET \"nombreFlujo\"='" + nombreFlujo + "', \"nivelEstado\"=" + nivelEstado + ", \"idRegla\"=" + idRegla + " WHERE \"idFlujoTrabajo\"=" + idFlujoTrabajo);
+            if (z == 1) {
+                System.out.println("Se actualizo el registro");
+            } else {
+                System.out.println("No se pudo actualizar el registro");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void EliminarFlujo(String idFlujoTrabajo){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("DELETE FROM \"FlujoTrabajo\" WHERE \"idFlujoTrabajo\"=" + idFlujoTrabajo);
+            if (z == 1) {
+                System.out.println("Se actualizo el registro");
+            } else {
+                System.out.println("No se pudo actualizar el registro");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void consultarReglas(TableView<Reglas> tableView){
+        ObservableList<Reglas> data = FXCollections.observableArrayList();
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            rs = s.executeQuery("SELECT * FROM \"Reglas\"");
+            
+            while (rs.next()) {      
+                Reglas reglas = new Reglas(rs.getString(1), rs.getString(2), rs.getString(3));
+                data.add(reglas);
+            }
+            tableView.setItems(data);
+           
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void insertarRegla(String nombreRegla, String descipcionRegla){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("INSERT INTO \"Reglas\"(\"nombreRegla\", \"descripcionRegla\") VALUES ('" + nombreRegla + "', '" + descipcionRegla + "')");
+            if (z == 1) {
+                System.out.println("Se agregó el registro");
+            } else {
+                System.out.println("No se pudo registrar");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void actualizarRegla(String idRegla, String nombreRegla, String descipcionRegla){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("UPDATE \"Reglas\" SET \"nombreRegla\"='" + nombreRegla + "', \"descripcionRegla\"='" + descipcionRegla + "' WHERE \"idRegla\"=" + idRegla);
+            if (z == 1) {
+                System.out.println("Se actualizo el registro");
+            } else {
+                System.out.println("No se pudo actualizar el registro");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void EliminarRegla(String idRegla){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            int z = s.executeUpdate("DELETE FROM \"Reglas\" WHERE \"idRegla\"=" + idRegla);
+            if (z == 1) {
+                System.out.println("Se actualizo el registro");
+            } else {
+                System.out.println("No se pudo actualizar el registro");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void listaReglas(ComboBox cbo, ArrayList<String> datos){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            rs = s.executeQuery("SELECT * FROM \"Reglas\"");
+            
+            ObservableList<String> list = FXCollections.observableArrayList();
+            while (rs.next()) {
+                list.add(rs.getString(1));
+                datos.add(rs.getString(1));
+                datos.add(rs.getString(2));
+            }
+            cbo.setItems(list);
+           
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    public void listaEstados(ComboBox cbo, ArrayList<String> datos){
+        try {
+            iniciarConexion();
+            s = connection.createStatement();
+            rs = s.executeQuery("SELECT * FROM \"Estados\"");
+            
+            ObservableList<String> list = FXCollections.observableArrayList();
+            while (rs.next()) {
+                list.add(rs.getString(1));
+                datos.add(rs.getString(1));
+                datos.add(rs.getString(2));
+            }
+            cbo.setItems(list);
+           
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    
+    // Fin modulo de Flujo de trabajo <-------------
 }

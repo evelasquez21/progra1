@@ -43,7 +43,7 @@ public class Tickets {
        return idPrioridad.get();
    }
    
-   public String getNoFechaCreacion(){
+   public String getFechaCreacion(){
        return fechaCreacion.get();
    }
    
